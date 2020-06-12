@@ -30,7 +30,9 @@ luxurious truck"
 There can be embedded line breaks in a field within double quotes like this:
 
 1997,Ford,E350,"Go get
+
 one nowthey are going
+
 fast"
 
 ## Usage
@@ -72,7 +74,7 @@ csvtojson application is designed to have fairly minimal requirements to build a
 
 | Target           | Description                                                         |
 |------------------|---------------------------------------------------------------------|
-| `[Nothing]`      | Build the application (including `test` if `BUILD_TESTS=ON`).       |
+| `[Nothing]`      | Build the application.       |
 | `clean`          | Clean all built targets.                                            |
 
 #### How to build the application
@@ -82,4 +84,4 @@ csvtojson application is designed to have fairly minimal requirements to build a
 * `cmake ..`
 * `cmake --build .`
 
-This will generate a application `csvtojson[.exe]`.
+This will generate a application `csvtojson[.exe]` in `bin` directory from the root project directory.
