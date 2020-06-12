@@ -18,7 +18,10 @@ namespace askia
 
         if (!inputStream.is_open())
             throw std::runtime_error("ERROR: Impossible to open the file : " + std::string(csvInputFilePath));
-        mJsonFileResult = jsoncons::csv::decode_csv<jsoncons::json>(inputStream);
+        mJsonFileResult = jsoncons::csv::decode_csv<jsoncons::json>(inputStream,
+                                                                    jsoncons::csv::csv_options().assume_header(hasHeader));
+        if (mJsonFileResult.empty())
+            throw std::runtime_error("ERROR: Invalid CSV file or invalid option.");
     }
 
     void Parser::print(const char *jsonOutputFilePath) const noexcept(false)
@@ -30,6 +33,6 @@ namespace askia
 
         if (!outputStream.is_open())
             throw std::runtime_error("ERROR: Impossible to open the file : " + std::string(jsonOutputFilePath));
-        outputStream << mJsonFileResult << std::endl;
+        outputStream << jsoncons::pretty_print(mJsonFileResult) << std::endl;
     }
 }
