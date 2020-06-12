@@ -5,10 +5,12 @@
 //!
 
 #include <cstdlib>
-#include <iostreamgit>
+#include <iostream>
 
 int main(int argc, const char * const *argv)
 {
+    (void)argc;
+    (void)argv;
     std::cout << "Hello World!" << std::endl;
     return (EXIT_SUCCESS);
 }
