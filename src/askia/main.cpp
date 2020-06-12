@@ -10,6 +10,10 @@
 #include <iostream>
 #include <stdexcept>
 
+//!
+//! @brief Print the application on the standard output.
+//! @param appPath Application path for the help.
+//!
 static void showHelp(const char *appPath)
 {
     std::cout << "Usage: " << appPath << " <input_csv_file_path> <output_json_file_path> [--header]" << std::endl;
@@ -23,7 +27,7 @@ static void showHelp(const char *appPath)
     std::cout << "JSON output should contain arrays.";
 }
 
-int main(int argc, const char * const *argv)
+int         main(int argc, const char * const *argv)
 {
     askia::Parser   parser;
 

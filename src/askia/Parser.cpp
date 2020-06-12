@@ -26,7 +26,7 @@ namespace askia
 
     void Parser::print(const char *jsonOutputFilePath) const noexcept(false)
     {
-        if (mJsonFileResult.empty())
+        if (!isValid())
             throw std::runtime_error("ERROR: Impossible to generate a json output file without loading a csv input file.");
 
         std::ofstream   outputStream(jsonOutputFilePath);
