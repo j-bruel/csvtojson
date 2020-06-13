@@ -64,7 +64,7 @@ elseif (CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
     ##
     ## Set Windows compilation flag.
     ##
-    set(CMAKE_CXX_FLAGS         "${CMAKE_CXX_FLAGS} /W4")
+    set(CMAKE_CXX_FLAGS         "${CMAKE_CXX_FLAGS} /W3")
     set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /O2")
 endif(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
 
