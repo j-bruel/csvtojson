@@ -85,3 +85,62 @@ csvtojson application is designed to have fairly minimal requirements to build a
 * `cmake --build .`
 
 This will generate a application `csvtojson[.exe]` in `bin` directory from the root project directory.
+
+## Usage
+
+`csvtojson[.exe] <input_csv_file_path> <output_json_file_path> [--header]`
+
+| Argument                | Mandatory | Description                                                                        |
+|-------------------------|-----------|------------------------------------------------------------------------------------|
+| `input_csv_file_path`   | Yes       | CSV file path to read and translate to json format.                                |
+| `output_json_file_path` | Yes       | JSON file path use has output.                                                     |
+| `--header`              | No        | Option to specify then the first line of the CSV file is considered as the header. |
+
+## Example
+
+From this `test.csv` file :
+
+````csv
+Year,Car,Model,Description
+1997,Ford,E350"1997","Ford","E350"
+1997,Ford,E350,"Super,
+luxurious truck"
+1997,Ford,E350,"Super,
+""luxurious"" truck"
+````
+
+`csvtojson[.exe] test.csv test.json` will generate :
+
+````json
+[
+    ["Year", "Car", "Model", "Description"], 
+    [1997, "Ford", "1997", "Ford", "E350"], 
+    [1997, "Ford", "E350", "Super,\nluxurious truck"], 
+    [1997, "Ford", "E350", "Super,\n\"luxurious\" truck"]
+]
+````
+
+`csvtojson[.exe] test.csv test.json --header` will generate :
+
+````json
+[
+    {
+        "Car": "Ford", 
+        "Description": "Ford", 
+        "Model": "1997", 
+        "Year": 1997
+    }, 
+    {
+        "Car": "Ford", 
+        "Description": "Super,\nluxurious truck", 
+        "Model": "E350", 
+        "Year": 1997
+    }, 
+    {
+        "Car": "Ford", 
+        "Description": "Super,\n\"luxurious\" truck", 
+        "Model": "E350", 
+        "Year": 1997
+    }
+]
+````
