@@ -63,18 +63,12 @@ No need to download this library. jsoncons is included in this project into the 
 
 ### Build
 
-#### Variables
-
-| Variable           | Description                                                                                    | Possible Values                                 | Default Value |
-|--------------------|------------------------------------------------------------------------------------------------|-------------------------------------------------|---------------|
-| `CMAKE_BUILD_TYPE` | Specifies what build type (configuration) will be built in this build tree.                    | `Debug`/`Release`/`RelWithDebInfo`/`MinSizeRel` | `Release`     |
-
 #### Targets
 
-| Target           | Description                                                         |
-|------------------|---------------------------------------------------------------------|
+| Target           | Description                  |
+|------------------|------------------------------|
 | `[Nothing]`      | Build the application.       |
-| `clean`          | Clean all built targets.                                            |
+| `clean`          | Clean all built targets.     |
 
 #### How to build the application
 

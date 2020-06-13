@@ -64,7 +64,7 @@ namespace askia
         //! @return CSV file parsing status.
         //!
         [[nodiscard]]
-        inline bool isValid() const { return (!mJsonFileResult.empty()); }
+        inline bool isValid() const noexcept { return (!mJsonFileResult.empty()); }
     };
 }
 
