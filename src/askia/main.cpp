@@ -24,7 +24,7 @@ static void showHelp(const char *appPath)
     std::cout << "--header:               Specified then the first line of the CSV file is considered as the header ";
     std::cout << "line and the JSON output file should contain objects with the appropriate corresponding key, ";
     std::cout << "if no 'header' option is specified then there will be no header line in the CSV file and the ";
-    std::cout << "JSON output should contain arrays.";
+    std::cout << "JSON output should contain arrays." << std::endl;
 }
 
 int         main(int argc, const char * const *argv)
