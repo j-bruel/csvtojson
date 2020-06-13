@@ -46,9 +46,8 @@ csvtojson platforms available :
 
 ### Requirements
 
-csvtojson application is designed to have fairly minimal requirements to build and use with your projects, but there are some.
-
-* [jsoncons](https://github.com/danielaparker/jsoncons)
+csvtojson use the [jsoncons](https://github.com/danielaparker/jsoncons) library.
+No need to download this library. jsoncons is included in this project into the "third_party" directory.
 
 ##### Windows Requirements
 
