@@ -20,7 +20,7 @@ static void showHelp(const char *appPath)
     std::cout << "This application convert csv file to json file." << std::endl;
     std::cout << std::endl;
     std::cout << "<input_csv_file_path>   CSV file path to read and translate to json format." << std::endl;
-    std::cout << "<output_json_file_path> JSON file path use has output.";
+    std::cout << "<output_json_file_path> JSON file path use has output." << std::endl;
     std::cout << "--header:               Specified then the first line of the CSV file is considered as the header ";
     std::cout << "line and the JSON output file should contain objects with the appropriate corresponding key, ";
     std::cout << "if no 'header' option is specified then there will be no header line in the CSV file and the ";
