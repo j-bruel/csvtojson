@@ -5,7 +5,7 @@
 //! @brief Main function for the Askia technical test.
 //!
 
-#include "askia/Parser.hpp"
+#include "askia/CSVParser.hpp"
 #include <cstdlib>
 #include <iostream>
 #include <stdexcept>
@@ -29,15 +29,15 @@ static void showHelp(const char *appPath)
 
 int         main(int argc, const char * const *argv)
 {
-    askia::Parser   parser;
+    askia::CSVParser   parser;
 
     if (argc < 3) {
         showHelp(argv[0]);
         return (EXIT_FAILURE);
     }
     try {
-        parser.read(argv[1], (argc >= 4 && std::string(argv[3]) == "--header"));
-        parser.print(argv[2]);
+//        parser.read(argv[1], (argc >= 4 && std::string(argv[3]) == "--header"));
+//        parser.print(argv[2]);
     } catch (std::exception &e) {
         std::cerr << e.what() << std::endl;
         return (EXIT_FAILURE);
