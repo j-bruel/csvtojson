@@ -27,10 +27,7 @@ static void showHelp(const char *appPath)
     std::cout << "JSON output should contain arrays." << std::endl;
 }
 
-//! @todo Read system into parser. Choose best container [csvrow[csvfield]].
-//! @todo doxygen
 //! @todo last line not read from file.
-//! @todo own exception
 //! @todo Re-implement option features
 //! @todo json printer
 //! @todo update readme.md
@@ -44,7 +41,7 @@ int         main(int argc, const char * const *argv)
         return (EXIT_FAILURE);
     }*/
     try {
-        csvContent = parser.pars("../sample/email.csv");
+        csvContent = parser.parse("../sample/email.csv");
         for (const std::vector<std::string> &row : csvContent)
         {
             for (const std::string &field : row)

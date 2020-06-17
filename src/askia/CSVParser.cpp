@@ -12,11 +12,13 @@
 namespace askia
 {
 
-    askia::CSVContent   CSVParser::pars(const char *filePath) const noexcept(false)
+    askia::CSVContent   CSVParser::parse(const char *filePath) const noexcept(false)
     {
         std::ifstream       csvInputFile(filePath);
         askia::CSVContent   csvContent;
 
+        if (filePath == nullptr || !std::strlen(filePath))
+            throw askia::exception("CSV file path is NULL or empty. Impossible to parse the file.");
         if (csvInputFile.fail())
             throw askia::exception("CSV input file not found.");
         while (csvInputFile.good())
@@ -28,18 +30,18 @@ namespace askia
     askia::CSVRow       CSVParser::parseRow(std::istream &csvInputFile) const noexcept
     {
         askia::CSVRow   row;
-        std::string     field;
+        askia::CSVField field;
         bool            amIIntoQuotes = false;
         char            currentReadingChar;
 
-        while (csvInputFile.good())
+        while (csvInputFile.good()) // looping into the file char by char.
         {
             currentReadingChar = csvInputFile.get();
-            if (!amIIntoQuotes && currentReadingChar == '"')
+            if (!amIIntoQuotes && currentReadingChar == '"') // if not into quotes and current char is a quote.
                 amIIntoQuotes = true;
-            else if (amIIntoQuotes && currentReadingChar == '"')
+            else if (amIIntoQuotes && currentReadingChar == '"') // if into quotes and current char is a quote.
             {
-                if (csvInputFile.peek() == '"')
+                if (csvInputFile.peek() == '"') // if next char is a quote too.
                 {
                     field += currentReadingChar;
                     field += static_cast<char>(csvInputFile.get());
@@ -47,13 +49,13 @@ namespace askia
                 }
                 amIIntoQuotes = false;
             }
-            else if (!amIIntoQuotes && currentReadingChar == mSeparator)
+            else if (!amIIntoQuotes && currentReadingChar == mSeparator) // if not into quotes and current char is a separator.
             {
                 row.push_back(field);
                 field.clear();
                 continue;
             }
-            else if (!amIIntoQuotes && (currentReadingChar == '\r' || currentReadingChar == '\n'))
+            else if (!amIIntoQuotes && (currentReadingChar == '\r' || currentReadingChar == '\n')) // if not into quotes and end of the row.
             {
                 row.push_back(field);
                 return (row);

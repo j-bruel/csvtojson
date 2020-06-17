@@ -17,8 +17,9 @@
 //!
 namespace askia
 {
-    using CSVRow = std::vector<std::string>;
-    using CSVContent = std::vector<CSVRow>;
+    using CSVField = std::string; //!< A single csv field is translated into a string.
+    using CSVRow = std::vector<CSVField>; //!< A csv row is a sequence of field.
+    using CSVContent = std::vector<CSVRow>; //!< A csv content is a sequence of row. This type can contain a full csv file.
 
     //!
     //! @class CSVParser
@@ -27,7 +28,7 @@ namespace askia
     class   CSVParser final
     {
     private:
-        char    mSeparator;
+        char    mSeparator; //!< Single character used to split csv field.
 
     public:
         //!
@@ -36,7 +37,7 @@ namespace askia
         CSVParser() : mSeparator(',') {}
         //!
         //! @brief Copy constructor.
-        //! @warning Not avaiable.
+        //! @warning Not available.
         //!
         CSVParser(const CSVParser &) = delete;
         //!
@@ -50,15 +51,34 @@ namespace askia
         ~CSVParser() = default;
 
     public:
-        inline void setFieldSeparator(char separator) noexcept(false) { mSeparator = separator; }
+        //!
+        //! @brief Initialize the field separator.
+        //! @param separator Single character used to split csv field.
+        //!
+        inline void setFieldSeparator(char separator) noexcept { mSeparator = separator; }
+        //!
+        //! @brief Extract the field separator.
+        //! @return Single character used to split csv field.
+        //!
         [[nodiscard]]
-        inline char getFieldSeparator() const noexcept(false) { return (mSeparator); }
+        inline char getFieldSeparator() const noexcept { return (mSeparator); }
 
     public:
+        //!
+        //! @brief Parse a csv file.
+        //! @param filePath File path used to find the file and parse it.
+        //! @return The csv file content into a structured format.
+        //! @throw Raise if the file path is invalid.
+        //!
         [[nodiscard]]
-        askia::CSVContent   pars(const char *filePath) const noexcept(false);
+        askia::CSVContent   parse(const char *filePath) const noexcept(false);
 
     private:
+        //!
+        //! @brief Parse a csv row according a already open file.
+        //! @param csvInputFile CSV input file already opened.
+        //! @return A csv row is a sequence of field.
+        //!
         [[nodiscard]]
         askia::CSVRow       parseRow(std::istream &csvInputFile) const noexcept;
     };
