@@ -56,20 +56,25 @@ namespace askia
             }
             else if (!amIIntoQuotes && currentReadingChar == mSeparator) // if not into quotes and current char is a separator.
             {
-                row.push_back(field);
+                addFieldIntoRow(row, field);
                 field.clear();
                 continue;
             }
             else if (!amIIntoQuotes && (currentReadingChar == '\r' || currentReadingChar == '\n')) // if not into quotes and end of the row.
             {
-                row.push_back(field);
+                addFieldIntoRow(row, field);
                 return (row);
             }
             field += currentReadingChar;
         }
-        if (!field.empty() && field[0] != EOF) // if the last row has no \n at the end or row contain the end of file signal.
-            row.push_back(field);
+        addFieldIntoRow(row, field);
         return (row);
+    }
+
+    void    CSVParser::addFieldIntoRow(askia::CSVRow &row, const askia::CSVField &field) const noexcept
+    {
+        if (!field.empty() && field[0] != EOF)
+            row.push_back(field);
     }
 
 }

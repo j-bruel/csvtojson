@@ -27,9 +27,8 @@ static void showHelp(const char *appPath)
     std::cout << "JSON output should contain arrays." << std::endl;
 }
 
-//! @todo Clean parser with subfunction
 //! @todo Re-implement option features
-//! @todo json printer
+//! @todo json printer.
 //! @todo update readme.md
 int         main(int argc, const char * const *argv)
 {
@@ -42,7 +41,7 @@ int         main(int argc, const char * const *argv)
         return (EXIT_FAILURE);
     }
     try {
-        csvContent = parser.parse("../sample/email.csv");
+        csvContent = parser.parse(argv[1]);
         for (const std::vector<std::string> &row : csvContent)
         {
             for (const std::string &field : row)

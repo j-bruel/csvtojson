@@ -81,6 +81,12 @@ namespace askia
         //!
         [[nodiscard]]
         askia::CSVRow       parseRow(std::istream &csvInputFile) const noexcept;
+        //!
+        //! @brief Add field into the csv row with full check.
+        //! @param row Where to add the field.
+        //! @param field Field to add into the row if valid.
+        //!
+        void                addFieldIntoRow(askia::CSVRow &row, const askia::CSVField &field) const noexcept;
     };
 }
 
