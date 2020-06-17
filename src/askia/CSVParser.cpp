@@ -8,46 +8,41 @@
 #include "askia/CSVParser.hpp"
 #include "askia/exception.hpp"
 #include <fstream>
-#include <iostream>
 
 namespace askia
 {
 
-    void    CSVParser::pars(const char *filePath) const noexcept(false)
+    askia::CSVContent   CSVParser::pars(const char *filePath) const noexcept(false)
     {
-        std::ifstream               csvInputFile(filePath);
-        std::vector<std::string>    row;
+        std::ifstream       csvInputFile(filePath);
+        askia::CSVContent   csvContent;
 
         if (csvInputFile.fail())
             throw askia::exception("CSV input file not found.");
         while (csvInputFile.good())
-        {
-            row = parseRow(csvInputFile);
-            for (const std::string &field : row)
-                std::cout << "[" << field << "]";
-            std::cout << std::endl;
-        }
+            csvContent.push_back(parseRow(csvInputFile));
         csvInputFile.close();
+        return (csvContent);
     }
 
-    std::vector<std::string>    CSVParser::parseRow(std::istream &in) const noexcept
+    askia::CSVRow       CSVParser::parseRow(std::istream &csvInputFile) const noexcept
     {
-        std::string                 field;
-        bool                        amIIntoQuotes = false;
-        std::vector<std::string>    row;
-        char                        currentReadingChar;
+        askia::CSVRow   row;
+        std::string     field;
+        bool            amIIntoQuotes = false;
+        char            currentReadingChar;
 
-        while (in.good())
+        while (csvInputFile.good())
         {
-            currentReadingChar = in.get();
+            currentReadingChar = csvInputFile.get();
             if (!amIIntoQuotes && currentReadingChar == '"')
                 amIIntoQuotes = true;
             else if (amIIntoQuotes && currentReadingChar == '"')
             {
-                if (in.peek() == '"')
+                if (csvInputFile.peek() == '"')
                 {
                     field += currentReadingChar;
-                    field += static_cast<char>(in.get());
+                    field += static_cast<char>(csvInputFile.get());
                     continue;
                 }
                 amIIntoQuotes = false;

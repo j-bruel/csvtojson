@@ -9,7 +9,6 @@
 #include <cstdlib>
 #include <iostream>
 #include <stdexcept>
-#include <fstream>
 
 //!
 //! @brief Print the application on the standard output.
@@ -37,14 +36,21 @@ static void showHelp(const char *appPath)
 //! @todo update readme.md
 int         main(int argc, const char * const *argv)
 {
-    askia::CSVParser   parser;
+    askia::CSVParser    parser;
+    askia::CSVContent   csvContent;
 
 /*    if (argc < 3) {
         showHelp(argv[0]);
         return (EXIT_FAILURE);
     }*/
     try {
-        parser.pars("../sample/email.csv");
+        csvContent = parser.pars("../sample/email.csv");
+        for (const std::vector<std::string> &row : csvContent)
+        {
+            for (const std::string &field : row)
+                std::cout << "[" << field << "]";
+            std::cout << std::endl;
+        }
 //        parser.read(argv[1], (argc >= 4 && std::string(argv[3]) == "--header"));
 //        parser.print(argv[2]);
     } catch (std::exception &e) {

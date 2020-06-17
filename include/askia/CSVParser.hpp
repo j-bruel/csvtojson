@@ -17,6 +17,9 @@
 //!
 namespace askia
 {
+    using CSVRow = std::vector<std::string>;
+    using CSVContent = std::vector<CSVRow>;
+
     //!
     //! @class CSVParser
     //! @brief Askia parser according instruction from the technical test.
@@ -52,14 +55,12 @@ namespace askia
         inline char getFieldSeparator() const noexcept(false) { return (mSeparator); }
 
     public:
-        void    pars(const char *filePath) const noexcept(false);
+        [[nodiscard]]
+        askia::CSVContent   pars(const char *filePath) const noexcept(false);
 
     private:
         [[nodiscard]]
-        std::vector<std::string>    parseRow(std::istream &in) const noexcept;
-
-    private:
-//        bool    isFieldIntoQuotes() const noexcept(false) { }
+        askia::CSVRow       parseRow(std::istream &csvInputFile) const noexcept;
     };
 }
 
