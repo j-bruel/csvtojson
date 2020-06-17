@@ -8,6 +8,10 @@
 #ifndef CSVTOJSON_ASKIA_CSVTOJSON_PARSER_HPP
 # define CSVTOJSON_ASKIA_CSVTOJSON_PARSER_HPP
 
+# include <vector>
+# include <string>
+# include <sstream>
+
 //!
 //! @namespace askia
 //!
@@ -19,11 +23,14 @@ namespace askia
     //!
     class   CSVParser final
     {
+    private:
+        char    mSeparator;
+
     public:
         //!
         //! @brief CSVParser default constructor.
         //!
-        CSVParser() = default;
+        CSVParser() : mSeparator(',') {}
         //!
         //! @brief Copy constructor.
         //! @warning Not avaiable.
@@ -38,6 +45,18 @@ namespace askia
         //! @brief CSVParser destructor.
         //!
         ~CSVParser() = default;
+
+    public:
+        inline void setFieldSeparator(char separator) noexcept(false) { mSeparator = separator; }
+        [[nodiscard]]
+        inline char getFieldSeparator() const noexcept(false) { return (mSeparator); }
+
+    public:
+        [[nodiscard]]
+        std::vector<std::string>    parseRow(std::istream &in) const noexcept(false);
+
+    private:
+//        bool    isFieldIntoQuotes() const noexcept(false) { }
     };
 }
 

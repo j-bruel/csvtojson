@@ -9,6 +9,7 @@
 #include <cstdlib>
 #include <iostream>
 #include <stdexcept>
+#include <fstream>
 
 //!
 //! @brief Print the application on the standard output.
@@ -27,15 +28,38 @@ static void showHelp(const char *appPath)
     std::cout << "JSON output should contain arrays." << std::endl;
 }
 
+//! @todo std::filesystem
+//! @todo Read system into parser
+//! @todo last line not read from file.
+//! @todo own exception
+//! @todo Re-implement option features
+//! @todo json printer
 int         main(int argc, const char * const *argv)
 {
     askia::CSVParser   parser;
 
-    if (argc < 3) {
+/*    if (argc < 3) {
         showHelp(argv[0]);
         return (EXIT_FAILURE);
-    }
+    }*/
     try {
+        std::ifstream               in("../sample/email.csv");
+        std::vector<std::string>    row;
+
+        if (in.fail())
+        {
+            std::cerr << "File not found." << std::endl;
+            return (EXIT_FAILURE);
+        }
+        while(in.good())
+        {
+            parser.setFieldSeparator(',');
+            row = parser.parseRow(in);
+            for (const std::string &field : row)
+                std::cout << "[" << field << "]";
+            std::cout << std::endl;
+        }
+        in.close();
 //        parser.read(argv[1], (argc >= 4 && std::string(argv[3]) == "--header"));
 //        parser.print(argv[2]);
     } catch (std::exception &e) {
