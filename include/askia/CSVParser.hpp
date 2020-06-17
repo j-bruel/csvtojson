@@ -52,8 +52,11 @@ namespace askia
         inline char getFieldSeparator() const noexcept(false) { return (mSeparator); }
 
     public:
+        void    pars(const char *filePath) const noexcept(false);
+
+    private:
         [[nodiscard]]
-        std::vector<std::string>    parseRow(std::istream &in) const noexcept(false);
+        std::vector<std::string>    parseRow(std::istream &in) const noexcept;
 
     private:
 //        bool    isFieldIntoQuotes() const noexcept(false) { }

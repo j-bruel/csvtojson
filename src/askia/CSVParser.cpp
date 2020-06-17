@@ -6,11 +6,31 @@
 //!
 
 #include "askia/CSVParser.hpp"
+#include "askia/exception.hpp"
+#include <fstream>
+#include <iostream>
 
 namespace askia
 {
 
-    std::vector<std::string>    CSVParser::parseRow(std::istream &in) const noexcept(false)
+    void    CSVParser::pars(const char *filePath) const noexcept(false)
+    {
+        std::ifstream               csvInputFile(filePath);
+        std::vector<std::string>    row;
+
+        if (csvInputFile.fail())
+            throw askia::exception("CSV input file not found.");
+        while (csvInputFile.good())
+        {
+            row = parseRow(csvInputFile);
+            for (const std::string &field : row)
+                std::cout << "[" << field << "]";
+            std::cout << std::endl;
+        }
+        csvInputFile.close();
+    }
+
+    std::vector<std::string>    CSVParser::parseRow(std::istream &in) const noexcept
     {
         std::string                 field;
         bool                        amIIntoQuotes = false;
