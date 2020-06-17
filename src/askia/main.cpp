@@ -27,7 +27,7 @@ static void showHelp(const char *appPath)
     std::cout << "JSON output should contain arrays." << std::endl;
 }
 
-//! @todo last line not read from file.
+//! @todo Clean parser with subfunction
 //! @todo Re-implement option features
 //! @todo json printer
 //! @todo update readme.md
@@ -36,10 +36,11 @@ int         main(int argc, const char * const *argv)
     askia::CSVParser    parser;
     askia::CSVContent   csvContent;
 
-/*    if (argc < 3) {
+    if (argc < 3)
+    {
         showHelp(argv[0]);
         return (EXIT_FAILURE);
-    }*/
+    }
     try {
         csvContent = parser.parse("../sample/email.csv");
         for (const std::vector<std::string> &row : csvContent)

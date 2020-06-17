@@ -16,13 +16,18 @@ namespace askia
     {
         std::ifstream       csvInputFile(filePath);
         askia::CSVContent   csvContent;
+        askia::CSVRow       csvRow;
 
         if (filePath == nullptr || !std::strlen(filePath))
             throw askia::exception("CSV file path is NULL or empty. Impossible to parse the file.");
         if (csvInputFile.fail())
             throw askia::exception("CSV input file not found.");
         while (csvInputFile.good())
-            csvContent.push_back(parseRow(csvInputFile));
+        {
+            csvRow = parseRow(csvInputFile);
+            if (!csvRow.empty())
+                csvContent.push_back(csvRow);
+        }
         csvInputFile.close();
         return (csvContent);
     }
@@ -62,6 +67,8 @@ namespace askia
             }
             field += currentReadingChar;
         }
+        if (!field.empty() && field[0] != EOF) // if the last row has no \n at the end or row contain the end of file signal.
+            row.push_back(field);
         return (row);
     }
 
