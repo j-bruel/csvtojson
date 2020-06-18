@@ -71,10 +71,11 @@ namespace askia
         //!
         //! @brief Formatting the string field into the target json format.
         //! @param str Input string to format.
+        //! @param isHeaderField Tell if the string if a header field. If this is the case, number will be into quotes.
         //! @return Formatted string.
         //!
         [[nodiscard]]
-        std::string stringFormatting(const std::string &str) const noexcept;
+        std::string stringFormatting(const std::string &str, bool isHeaderField = false) const noexcept;
         //!
         //! @brief Check if the input string is a numeric value.
         //! @param value String to check.

@@ -59,7 +59,7 @@ namespace askia
             jsonOutputFileStream << "\t{" << std::endl;
             for (size_t j = 0; j < header.size(); ++j)
             {
-                jsonOutputFileStream << "\t\t\t" << stringFormatting(header[j]) << ": ";
+                jsonOutputFileStream << "\t\t\t" << stringFormatting(header[j], true) << ": ";
                 jsonOutputFileStream << (j < csvContent[i].size() ? stringFormatting(csvContent[i][j]) : "\"\"");
                 if (j + 1 < header.size())
                     jsonOutputFileStream << ',' << std::endl;
@@ -71,9 +71,9 @@ namespace askia
         }
     }
 
-    std::string JSONPrinter::stringFormatting(const std::string &str) const noexcept
+    std::string JSONPrinter::stringFormatting(const std::string &str, bool isHeaderField) const noexcept
     {
-        if (isNumeric(str)) // no formatting if the value is a number.
+        if (!isHeaderField && isNumeric(str)) // no formatting if the value is a number.
             return (str);
 
         std::stringstream ss;
