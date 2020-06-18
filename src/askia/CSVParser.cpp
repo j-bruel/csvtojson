@@ -42,7 +42,7 @@ namespace askia
         while (csvInputFile.good()) // looping into the file char by char.
         {
             currentReadingChar = csvInputFile.get();
-            if (field.empty() && currentReadingChar == ' ')
+            if (field.empty() && currentReadingChar == ' ') // Check if there is a useless space before the field start.
                 continue;
             if (field.empty() && !amIIntoQuotes && currentReadingChar == '"') // if not into quotes and current char is a quote.
                 amIIntoQuotes = true;
@@ -57,26 +57,23 @@ namespace askia
                     amIIntoQuotes = false;
             }
             else if (!amIIntoQuotes && currentReadingChar == mSeparator) // if not into quotes and current char is a separator.
-            {
                 addFieldIntoRow(row, field);
-                field.clear();
-            }
             else if (!amIIntoQuotes && (currentReadingChar == '\r' || currentReadingChar == '\n')) // if not into quotes and end of the row.
-            {
-                addFieldIntoRow(row, field);
-                return (row);
-            }
+                return (addFieldIntoRow(row, field));
             else
                 field += currentReadingChar;
         }
-        addFieldIntoRow(row, field);
-        return (row);
+        return (addFieldIntoRow(row, field));
     }
 
-    void    CSVParser::addFieldIntoRow(askia::CSVRow &row, const askia::CSVField &field) const noexcept
+    askia::CSVRow   &CSVParser::addFieldIntoRow(askia::CSVRow &row, askia::CSVField &field) const noexcept
     {
         if (!field.empty() && field[0] != EOF)
+        {
             row.push_back(field);
+            field.clear();
+        }
+        return (row);
     }
 
 }

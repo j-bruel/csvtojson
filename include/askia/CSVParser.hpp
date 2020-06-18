@@ -81,13 +81,15 @@ namespace askia
         //! @return A csv row is a sequence of field.
         //!
         [[nodiscard]]
-        askia::CSVRow       parseRow(std::istream &csvInputFile) const noexcept;
+        askia::CSVRow   parseRow(std::istream &csvInputFile) const noexcept;
         //!
-        //! @brief Add field into the csv row.
+        //! @brief Add field into the csv row and clear it.
         //! @param row Where to add the field.
         //! @param field Field to add into the row if valid.
+        //! @return Row in parameter, use full for chaining.
         //!
-        void                addFieldIntoRow(askia::CSVRow &row, const askia::CSVField &field) const noexcept;
+        [[maybe_unused]]
+        askia::CSVRow   &addFieldIntoRow(askia::CSVRow &row, askia::CSVField &field) const noexcept;
     };
 }
 
