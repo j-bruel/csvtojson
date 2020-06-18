@@ -46,9 +46,6 @@ csvtojson platforms available :
 
 ### Requirements
 
-csvtojson use the [jsoncons](https://github.com/danielaparker/jsoncons) library.
-No need to download this library. jsoncons is included in this project into the "third_party" directory.
-
 ##### Windows Requirements
 
 * `CMake` At least v3.1
@@ -91,7 +88,7 @@ This will generate a application `csvtojson[.exe]` in `bin` directory from the r
 
 ## Example
 
-From this `test.csv` file :
+From this `sample/askia_instruction.csv` file :
 
 ````csv
 Year,Car,Model,Description
@@ -100,40 +97,50 @@ Year,Car,Model,Description
 luxurious truck"
 1997,Ford,E350,"Super,
 ""luxurious"" truck"
+1997,Ford,E350,"Go get
+one nowthey are going
+fast"
 ````
 
-`csvtojson[.exe] test.csv test.json` will generate :
+`csvtojson[.exe] sample/askia_instruction.csv askia_instruction.json` will generate :
 
 ````json
 [
-    ["Year", "Car", "Model", "Description"], 
-    [1997, "Ford", "1997", "Ford", "E350"], 
-    [1997, "Ford", "E350", "Super,\nluxurious truck"], 
-    [1997, "Ford", "E350", "Super,\n\"luxurious\" truck"]
+	["Year", "Car", "Model", "Description"],
+	[1997, "Ford", "E350\"1997\"", "Ford", "E350"],
+	[1997, "Ford", "E350", "Super,\nluxurious truck"],
+	[1997, "Ford", "E350", "Super,\n\"\"luxurious\"\" truck"],
+	[1997, "Ford", "E350", "Go get\none nowthey are going\nfast"]
 ]
 ````
 
-`csvtojson[.exe] test.csv test.json --header` will generate :
+`csvtojson[.exe] sample/askia_instruction.csv askia_instruction.json --header` will generate :
 
 ````json
 [
-    {
-        "Car": "Ford", 
-        "Description": "Ford", 
-        "Model": "1997", 
-        "Year": 1997
-    }, 
-    {
-        "Car": "Ford", 
-        "Description": "Super,\nluxurious truck", 
-        "Model": "E350", 
-        "Year": 1997
-    }, 
-    {
-        "Car": "Ford", 
-        "Description": "Super,\n\"luxurious\" truck", 
-        "Model": "E350", 
-        "Year": 1997
-    }
+	{
+			"Year": 1997,
+			"Car": "Ford",
+			"Model": "E350\"1997\"",
+			"Description": "Ford"
+	},
+	{
+			"Year": 1997,
+			"Car": "Ford",
+			"Model": "E350",
+			"Description": "Super,\nluxurious truck"
+	},
+	{
+			"Year": 1997,
+			"Car": "Ford",
+			"Model": "E350",
+			"Description": "Super,\n\"\"luxurious\"\" truck"
+	},
+	{
+			"Year": 1997,
+			"Car": "Ford",
+			"Model": "E350",
+			"Description": "Go get\none nowthey are going\nfast"
+	}
 ]
 ````
