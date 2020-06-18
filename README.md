@@ -18,12 +18,14 @@ You have to parse a CSV file and output a JSON file with the same data.
 ### Example
 
 Example CSV:
+```csv
 Year,Car,Model,Description
 1997,Ford,E350"1997","Ford","E350"
 1997,Ford,E350,"Super,
 luxurious truck"
 1997,Ford,E350,"Super,
 ""luxurious"" truck"
+```
 
 ### Bonus
 
@@ -90,7 +92,7 @@ This will generate a application `csvtojson[.exe]` in `bin` directory from the r
 
 From this `sample/askia_instruction.csv` file :
 
-````csv
+```csv
 Year,Car,Model,Description
 1997,Ford,E350"1997","Ford","E350"
 1997,Ford,E350,"Super,
@@ -100,11 +102,11 @@ luxurious truck"
 1997,Ford,E350,"Go get
 one nowthey are going
 fast"
-````
+```
 
 `csvtojson[.exe] sample/askia_instruction.csv askia_instruction.json` will generate :
 
-````json
+```json
 [
 	["Year", "Car", "Model", "Description"],
 	[1997, "Ford", "E350\"1997\"", "Ford", "E350"],
@@ -112,35 +114,35 @@ fast"
 	[1997, "Ford", "E350", "Super,\n\"\"luxurious\"\" truck"],
 	[1997, "Ford", "E350", "Go get\none nowthey are going\nfast"]
 ]
-````
+```
 
 `csvtojson[.exe] sample/askia_instruction.csv askia_instruction.json --header` will generate :
 
-````json
+```json
 [
 	{
-			"Year": 1997,
-			"Car": "Ford",
-			"Model": "E350\"1997\"",
-			"Description": "Ford"
+		"Year": 1997,
+		"Car": "Ford",
+		"Model": "E350\"1997\"",
+		"Description": "Ford"
 	},
 	{
-			"Year": 1997,
-			"Car": "Ford",
-			"Model": "E350",
-			"Description": "Super,\nluxurious truck"
+		"Year": 1997,
+		"Car": "Ford",
+		"Model": "E350",
+		"Description": "Super,\nluxurious truck"
 	},
 	{
-			"Year": 1997,
-			"Car": "Ford",
-			"Model": "E350",
-			"Description": "Super,\n\"\"luxurious\"\" truck"
+		"Year": 1997,
+		"Car": "Ford",
+		"Model": "E350",
+		"Description": "Super,\n\"\"luxurious\"\" truck"
 	},
 	{
-			"Year": 1997,
-			"Car": "Ford",
-			"Model": "E350",
-			"Description": "Go get\none nowthey are going\nfast"
+		"Year": 1997,
+		"Car": "Ford",
+		"Model": "E350",
+		"Description": "Go get\none nowthey are going\nfast"
 	}
 ]
-````
+```
