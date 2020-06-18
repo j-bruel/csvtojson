@@ -28,14 +28,13 @@ static void showHelp(const char *appPath)
     std::cout << "JSON output should contain arrays." << std::endl;
 }
 
-//! @todo Space before/after csv values.
-//! @todo Add quotes to string if not existing (json side). std::quoted ?
 //! @todo json printer.
 //! @todo update readme.md
 int         main(int argc, const char * const *argv)
 {
     askia::CSVParser    parser;
     askia::CSVContent   csvContent;
+    askia::JSONPrinter  jsonPrinter;
 
     if (argc < 3)
     {
@@ -44,7 +43,7 @@ int         main(int argc, const char * const *argv)
     }
     try {
         csvContent = parser.parse(argv[1]);
-        askia::JSONPrinter::print(argv[2], csvContent, (argc >= 4 && std::string(argv[3]) == "--header"));
+        jsonPrinter.print(argv[2], csvContent, (argc >= 4 && std::string(argv[3]) == "--header"));
     } catch (std::exception &e) {
         std::cerr << e.what() << std::endl;
         return (EXIT_FAILURE);

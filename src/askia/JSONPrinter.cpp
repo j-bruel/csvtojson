@@ -13,7 +13,7 @@
 namespace askia
 {
 
-    void    JSONPrinter::print(const char *outputFilePath, const CSVContent &csvContent, bool isHeader) noexcept(false)
+    void    JSONPrinter::print(const char *outputFilePath, const CSVContent &csvContent, bool isHeader) const noexcept(false)
     {
         if (outputFilePath == nullptr || strlen(outputFilePath) == 0)
             throw askia::exception("Output json file path is not set.");
@@ -28,7 +28,7 @@ namespace askia
         jsonOutputFileStream << "]" << std::endl;
     }
 
-    void    JSONPrinter::array(std::ofstream &jsonOutputFileStream, const CSVContent &csvContent) noexcept
+    void    JSONPrinter::array(std::ofstream &jsonOutputFileStream, const CSVContent &csvContent) const noexcept
     {
         for (size_t i = 0; i < csvContent.size(); ++i)
         {
@@ -48,12 +48,12 @@ namespace askia
         }
     }
 
-    void    JSONPrinter::object(std::ofstream &jsonOutputFileStream, const CSVRow &header, const CSVContent &csvContent) noexcept
+    void    JSONPrinter::object(std::ofstream &jsonOutputFileStream, const CSVRow &header, const CSVContent &csvContent) const noexcept
     {
 
     }
 
-    std::string JSONPrinter::stringFormatting(const std::string &str) noexcept
+    std::string JSONPrinter::stringFormatting(const std::string &str) const noexcept
     {
         if (isNumeric(str))
             return (str);

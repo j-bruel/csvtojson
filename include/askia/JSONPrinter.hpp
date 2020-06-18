@@ -19,16 +19,18 @@ namespace askia
     class JSONPrinter final
     {
     public:
-        static void print(const char *outputFilePath, const CSVContent &csvContent, bool isHeader = false) noexcept(false);
+        void    print(const char *outputFilePath, const CSVContent &csvContent, bool isHeader = false) const noexcept(false);
 
     private:
-        static void array(std::ofstream &jsonOutputFileStream, const CSVContent &csvContent) noexcept;
-        static void object(std::ofstream &jsonOutputFileStream, const CSVRow &header, const CSVContent &csvContent) noexcept;
+        void    array(std::ofstream &jsonOutputFileStream, const CSVContent &csvContent) const noexcept;
+        void    object(std::ofstream &jsonOutputFileStream, const CSVRow &header, const CSVContent &csvContent) const noexcept;
 
     private:
-        static std::string stringFormatting(const std::string &str) noexcept;
-        static inline bool isNumeric(const std::string &value) noexcept(false)
-            { return std::all_of(value.begin(), value.end(), [](unsigned char c){ return std::isdigit(c); }); }
+        [[nodiscard]]
+        std::string stringFormatting(const std::string &str) const noexcept;
+        [[nodiscard]]
+        inline bool isNumeric(const std::string &value) const noexcept(false)
+                    { return std::all_of(value.begin(), value.end(), [](unsigned char c){ return std::isdigit(c); }); }
     };
 }
 
