@@ -74,7 +74,10 @@ namespace askia
     void    CSVParser::addFieldIntoRow(askia::CSVRow &row, const askia::CSVField &field) const noexcept
     {
         if (!field.empty() && field[0] != EOF)
-            row.push_back(field);
+        {
+            std::string const output(std::regex_replace(field, std::regex("\n"), std::string("\\n")));
+            row.push_back(output);
+        }
     }
 
 }

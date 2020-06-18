@@ -11,6 +11,7 @@
 # include <vector>
 # include <string>
 # include <sstream>
+# include <regex>
 
 //!
 //! @namespace askia
@@ -87,6 +88,11 @@ namespace askia
         //! @param field Field to add into the row if valid.
         //!
         void                addFieldIntoRow(askia::CSVRow &row, const askia::CSVField &field) const noexcept;
+        //!
+        //! @brief Format the field : '\n' to '\\n' and remove spaces at the begin and at the end of the string.
+        //! @return Formatted string.
+        //!
+        std::string         formatField(const std::string &field) const noexcept { return (std::regex_replace(field, std::regex("\n"), std::string("\\n"))); }
     };
 }
 

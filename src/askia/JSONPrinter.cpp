@@ -21,15 +21,30 @@ namespace askia
 
         std::ofstream  jsonOutputFileStream(outputFilePath);
 
-        jsonOutputFileStream << "[\n" << std::endl;
+        jsonOutputFileStream << "[" << std::endl;
         if (!csvContent.empty())
             isHeader ? object(jsonOutputFileStream, csvContent[0], csvContent) : array(jsonOutputFileStream, csvContent);
-        jsonOutputFileStream << "]\n" << std::endl;
+        jsonOutputFileStream << "]" << std::endl;
     }
 
     void    JSONPrinter::array(std::ofstream &jsonOutputFileStream, const CSVContent &csvContent) noexcept(false)
     {
-
+        for (size_t i = 0; i < csvContent.size(); ++i)
+        {
+            if (csvContent[i].empty())
+                continue;
+            jsonOutputFileStream << "\t[";
+            for (size_t j = 0; j < csvContent[i].size(); ++j)
+            {
+                jsonOutputFileStream << csvContent[i][j];
+                if (j + 1 < csvContent[i].size())
+                    jsonOutputFileStream << ',';
+            }
+            jsonOutputFileStream << ']';
+            if (i + 1 < csvContent.size())
+                jsonOutputFileStream << ',';
+            jsonOutputFileStream << std::endl;
+        }
     }
 
     void    JSONPrinter::object(std::ofstream &jsonOutputFileStream, const CSVRow &header, const CSVContent &csvContent) noexcept(false)
