@@ -8,6 +8,7 @@
 #include "askia/JSONPrinter.hpp"
 #include "askia/exception.hpp"
 #include <fstream>
+#include <iomanip>
 
 namespace askia
 {
@@ -27,7 +28,7 @@ namespace askia
         jsonOutputFileStream << "]" << std::endl;
     }
 
-    void    JSONPrinter::array(std::ofstream &jsonOutputFileStream, const CSVContent &csvContent) noexcept(false)
+    void    JSONPrinter::array(std::ofstream &jsonOutputFileStream, const CSVContent &csvContent) noexcept
     {
         for (size_t i = 0; i < csvContent.size(); ++i)
         {
@@ -36,7 +37,7 @@ namespace askia
             jsonOutputFileStream << "\t[";
             for (size_t j = 0; j < csvContent[i].size(); ++j)
             {
-                jsonOutputFileStream << csvContent[i][j];
+                jsonOutputFileStream << stringFormatting(csvContent[i][j]);
                 if (j + 1 < csvContent[i].size())
                     jsonOutputFileStream << ',';
             }
@@ -47,9 +48,26 @@ namespace askia
         }
     }
 
-    void    JSONPrinter::object(std::ofstream &jsonOutputFileStream, const CSVRow &header, const CSVContent &csvContent) noexcept(false)
+    void    JSONPrinter::object(std::ofstream &jsonOutputFileStream, const CSVRow &header, const CSVContent &csvContent) noexcept
     {
 
+    }
+
+    std::string JSONPrinter::stringFormatting(const std::string &str) noexcept
+    {
+        return (str);
+        if (isNumeric(str))
+            return (str);
+        std::stringstream ss;
+
+        ss << std::quoted(str);
+        return (ss.str());
+    }
+
+    bool is_number(const std::string& s)
+    {
+        return !s.empty() && std::find_if(s.begin(),
+                                          s.end(), [](unsigned char c) { return !std::isdigit(c); }) == s.end();
     }
 
 }

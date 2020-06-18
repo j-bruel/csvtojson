@@ -92,7 +92,7 @@ namespace askia
         //! @brief Format the field : '\n' to '\\n' and remove spaces at the begin and at the end of the string.
         //! @return Formatted string.
         //!
-        std::string         formatField(const std::string &field) const noexcept { return (std::regex_replace(field, std::regex("\n"), std::string("\\n"))); }
+        std::string         formatField(const std::string &field) const noexcept { return (std::regex_replace(field, std::regex("\n\""), std::string("\\n\\\""))); }
     };
 }
 

@@ -9,6 +9,7 @@
 # define CSVTOJSON_ASKIA_CSVTOJSON_JSONPRINTER_HPP
 
 # include "askia/CSVParser.hpp"
+# include <cctype>
 
 //!
 //! @namespace askia
@@ -21,8 +22,14 @@ namespace askia
         static void print(const char *outputFilePath, const CSVContent &csvContent, bool isHeader = false) noexcept(false);
 
     private:
-        static void array(std::ofstream &jsonOutputFileStream, const CSVContent &csvContent) noexcept(false);
-        static void object(std::ofstream &jsonOutputFileStream, const CSVRow &header, const CSVContent &csvContent) noexcept(false);
+        static void array(std::ofstream &jsonOutputFileStream, const CSVContent &csvContent) noexcept;
+        static void object(std::ofstream &jsonOutputFileStream, const CSVRow &header, const CSVContent &csvContent) noexcept;
+
+    private:
+        static std::string stringFormatting(const std::string &str) noexcept;
+        static bool isDigit(const char value) { return std::isdigit(value); }
+        static bool isNumeric(const std::string &value) { return std::all_of(value.begin(), value.end(), isDigit); }
+
     };
 }
 

@@ -28,7 +28,8 @@ static void showHelp(const char *appPath)
     std::cout << "JSON output should contain arrays." << std::endl;
 }
 
-//! @todo Re-implement option features
+//! @todo Space before/after csv values.
+//! @todo Add quotes to string if not existing (json side). std::quoted ?
 //! @todo json printer.
 //! @todo update readme.md
 int         main(int argc, const char * const *argv)
