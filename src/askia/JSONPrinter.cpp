@@ -39,7 +39,7 @@ namespace askia
             {
                 jsonOutputFileStream << stringFormatting(csvContent[i][j]);
                 if (j + 1 < csvContent[i].size())
-                    jsonOutputFileStream << ',';
+                    jsonOutputFileStream << ", ";
             }
             jsonOutputFileStream << ']';
             if (i + 1 < csvContent.size())
@@ -55,19 +55,13 @@ namespace askia
 
     std::string JSONPrinter::stringFormatting(const std::string &str) noexcept
     {
-        return (str);
         if (isNumeric(str))
             return (str);
+
         std::stringstream ss;
 
         ss << std::quoted(str);
-        return (ss.str());
-    }
-
-    bool is_number(const std::string& s)
-    {
-        return !s.empty() && std::find_if(s.begin(),
-                                          s.end(), [](unsigned char c) { return !std::isdigit(c); }) == s.end();
+        return (std::regex_replace(ss.str(), std::regex("\n"), std::string("\\n")));
     }
 
 }

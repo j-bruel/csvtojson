@@ -27,9 +27,8 @@ namespace askia
 
     private:
         static std::string stringFormatting(const std::string &str) noexcept;
-        static bool isDigit(const char value) { return std::isdigit(value); }
-        static bool isNumeric(const std::string &value) { return std::all_of(value.begin(), value.end(), isDigit); }
-
+        static inline bool isNumeric(const std::string &value) noexcept(false)
+            { return std::all_of(value.begin(), value.end(), [](unsigned char c){ return std::isdigit(c); }); }
     };
 }
 

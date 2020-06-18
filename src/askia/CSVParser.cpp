@@ -42,7 +42,9 @@ namespace askia
         while (csvInputFile.good()) // looping into the file char by char.
         {
             currentReadingChar = csvInputFile.get();
-            if (!amIIntoQuotes && currentReadingChar == '"') // if not into quotes and current char is a quote.
+            if (field.empty() && currentReadingChar == ' ')
+                continue;
+            if (field.empty() && !amIIntoQuotes && currentReadingChar == '"') // if not into quotes and current char is a quote.
                 amIIntoQuotes = true;
             else if (amIIntoQuotes && currentReadingChar == '"') // if into quotes and current char is a quote.
             {
@@ -50,22 +52,22 @@ namespace askia
                 {
                     field += currentReadingChar;
                     field += static_cast<char>(csvInputFile.get());
-                    continue;
                 }
-                amIIntoQuotes = false;
+                else
+                    amIIntoQuotes = false;
             }
             else if (!amIIntoQuotes && currentReadingChar == mSeparator) // if not into quotes and current char is a separator.
             {
                 addFieldIntoRow(row, field);
                 field.clear();
-                continue;
             }
             else if (!amIIntoQuotes && (currentReadingChar == '\r' || currentReadingChar == '\n')) // if not into quotes and end of the row.
             {
                 addFieldIntoRow(row, field);
                 return (row);
             }
-            field += currentReadingChar;
+            else
+                field += currentReadingChar;
         }
         addFieldIntoRow(row, field);
         return (row);
@@ -74,7 +76,7 @@ namespace askia
     void    CSVParser::addFieldIntoRow(askia::CSVRow &row, const askia::CSVField &field) const noexcept
     {
         if (!field.empty() && field[0] != EOF)
-            row.push_back(std::regex_replace(field, std::regex("\n"), std::string("\\n")));
+            row.push_back(field);
     }
 
 }
