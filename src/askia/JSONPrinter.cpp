@@ -55,13 +55,13 @@ namespace askia
 
     std::string JSONPrinter::stringFormatting(const std::string &str) const noexcept
     {
-        if (isNumeric(str))
+        if (isNumeric(str)) // no formatting if the value is a number.
             return (str);
 
         std::stringstream ss;
 
-        ss << std::quoted(str);
-        return (std::regex_replace(ss.str(), std::regex("\n"), std::string("\\n")));
+        ss << std::quoted(str); // Quotes handling and sub quotes handling.
+        return (std::regex_replace(ss.str(), std::regex("\n"), std::string("\\n"))); // Using regex replace new line by \n characters.
     }
 
 }
