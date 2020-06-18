@@ -70,7 +70,6 @@ namespace askia
                 jsonOutputFileStream << ',';
             jsonOutputFileStream << std::endl;
         }
-
     }
 
     std::string JSONPrinter::stringFormatting(const std::string &str) const noexcept
