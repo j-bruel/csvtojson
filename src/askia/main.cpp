@@ -6,6 +6,7 @@
 //!
 
 #include "askia/CSVParser.hpp"
+#include "askia/JSONPrinter.hpp"
 #include <cstdlib>
 #include <iostream>
 #include <stdexcept>
@@ -42,14 +43,7 @@ int         main(int argc, const char * const *argv)
     }
     try {
         csvContent = parser.parse(argv[1]);
-        for (const std::vector<std::string> &row : csvContent)
-        {
-            for (const std::string &field : row)
-                std::cout << "[" << field << "]";
-            std::cout << std::endl;
-        }
-//        parser.read(argv[1], (argc >= 4 && std::string(argv[3]) == "--header"));
-//        parser.print(argv[2]);
+        askia::JSONPrinter::print(argv[2], csvContent, (argc >= 4 && std::string(argv[3]) == "--header"));
     } catch (std::exception &e) {
         std::cerr << e.what() << std::endl;
         return (EXIT_FAILURE);
