@@ -50,6 +50,26 @@ namespace askia
 
     void    JSONPrinter::object(std::ofstream &jsonOutputFileStream, const CSVRow &header, const CSVContent &csvContent) const noexcept
     {
+        if (csvContent.size() <= 1)
+            return ;
+        for (size_t i = 1; i < csvContent.size(); ++i)
+        {
+            if (csvContent[i].empty())
+                continue;
+            jsonOutputFileStream << "\t{" << std::endl;
+            for (size_t j = 0; j < header.size(); ++j)
+            {
+                if (csvContent[i].size() < j)
+                    break ;
+                jsonOutputFileStream << "\t\t\t" << stringFormatting(header[j]) << ": " << stringFormatting(csvContent[i][j]);
+                if (j + 1 < header.size())
+                    jsonOutputFileStream << ',' << std::endl;
+            }
+            jsonOutputFileStream << std::endl << "\t}";
+            if (i + 1 < csvContent.size())
+                jsonOutputFileStream << ',';
+            jsonOutputFileStream << std::endl;
+        }
 
     }
 
