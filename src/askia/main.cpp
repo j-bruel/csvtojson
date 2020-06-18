@@ -28,8 +28,6 @@ static void showHelp(const char *appPath)
     std::cout << "JSON output should contain arrays." << std::endl;
 }
 
-//! @todo json printer.
-//! @todo update readme.md
 int         main(int argc, const char * const *argv)
 {
     askia::CSVParser    parser;

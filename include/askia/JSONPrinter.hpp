@@ -82,7 +82,7 @@ namespace askia
         //!
         [[nodiscard]]
         inline bool isNumeric(const std::string &value) const noexcept(false)
-                    { return std::all_of(value.begin(), value.end(), [](unsigned char c){ return std::isdigit(c); }); }
+                    { return (!value.empty() && std::all_of(value.begin(), value.end(), [](unsigned char c){ return std::isdigit(c); })); }
     };
 }
 

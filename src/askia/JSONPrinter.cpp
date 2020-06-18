@@ -59,7 +59,7 @@ namespace askia
             jsonOutputFileStream << "\t{" << std::endl;
             for (size_t j = 0; j < header.size(); ++j)
             {
-                if (csvContent[i].size() < j)
+                if (j >= csvContent[i].size())
                     break ;
                 jsonOutputFileStream << "\t\t\t" << stringFormatting(header[j]) << ": " << stringFormatting(csvContent[i][j]);
                 if (j + 1 < header.size())
